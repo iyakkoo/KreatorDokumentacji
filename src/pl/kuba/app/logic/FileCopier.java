@@ -37,7 +37,7 @@ public class FileCopier {
             }
 
             //Get all files from source directory
-            String files[] = sourceFolder.list();
+            String[] files = sourceFolder.list();
 
             //Iterate over all files and copy them to destinationFolder one by one
             for (String file : files) {

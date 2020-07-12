@@ -4,7 +4,7 @@ import java.io.File;
 
 public class ProjectStructureMaker {
 
-    private String[] projectFolders = {"I. Opis techniczny", "II. Oświadczenia", "III. Obliczenia", "IV. Rysunki",
+    private final String[] projectFolders = {"I. Opis techniczny", "II. Oświadczenia", "III. Obliczenia", "IV. Rysunki",
             "V. Karty katalogowe", "VI. Certyfikaty"};
 
     public ProjectStructureMaker(String path) {

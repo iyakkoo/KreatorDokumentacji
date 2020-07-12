@@ -4,7 +4,7 @@ import java.io.File;
 
 public class OrderStructureMaker {
 
-    private String[] orderDirectories = {"zlecenie", "od klienta", "PW", "zestawienia"};
+    private final String[] orderDirectories = {"zlecenie", "od klienta", "PW", "zestawienia"};
 
     public OrderStructureMaker(String path) {
         createOrderStructure(path);
@@ -13,8 +13,9 @@ public class OrderStructureMaker {
     private void createOrderStructure(String path) {
 
         for (String s: orderDirectories) {
-            File file = new File(path + "/" + s);
-            file.mkdir();
+            File file = new File(path + "\\" + s);
+            boolean done = file.mkdir();
+            System.out.println("Stworzono" + s + ": " + done);
         }
 
     }
