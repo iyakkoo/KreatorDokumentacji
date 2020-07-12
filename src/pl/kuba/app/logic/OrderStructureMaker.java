@@ -15,7 +15,7 @@ public class OrderStructureMaker {
         for (String s: orderDirectories) {
             File file = new File(path + "\\" + s);
             boolean done = file.mkdir();
-            System.out.println("Stworzono" + s + ": " + done);
+            System.out.println("Stworzono " + s + ": " + done);
         }
 
     }

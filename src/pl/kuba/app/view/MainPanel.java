@@ -1,5 +1,11 @@
 package pl.kuba.app.view;
 
+import pl.kuba.app.view.buttons.ExecuteButton;
+import pl.kuba.app.view.checkBoxes.AddCalculator;
+import pl.kuba.app.view.checkBoxes.AddOrderStructure;
+import pl.kuba.app.view.checkBoxes.AddProjectStructure;
+import pl.kuba.app.view.textFields.OrderName;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,22 +14,20 @@ public class MainPanel extends JFrame {
     public MainPanel() throws HeadlessException {
         super("Kreator dokumentacji v1.0.0");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 700);
+        setSize(600, 400);
         setVisible(true);
         setLayout(null);
 
-        JLabel pathLabel = new JLabel();
-        pathLabel.setText("Wskaż lokalizację nowego projektu:");
-        pathLabel.setBounds(10, 10, 250, 15);
-        //add(pathLabel);
+        add(new OrderNamePanel());
 
-        JFileChooser pathChooser = new JFileChooser();
-        pathChooser.setCurrentDirectory(new java.io.File("."));
-        pathChooser.setDialogTitle("Wskaż lokalizację nowego projektu");
-        pathChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        pathChooser.setAcceptAllFileFilterUsed(false);
-        //pathChooser.setDialogTitle("Wskaż lokalizację nowego projektu");
-        add(pathChooser);
+        JLabel actionInfo = new JLabel();
+        actionInfo.setBounds(20, 90, 200, 20);
+        actionInfo.setText("Wskaż czynności do wykonania:");
+        add(actionInfo);
 
+        add(new AddOrderStructure());
+        add(new AddProjectStructure());
+        add(new AddCalculator());
+        add(new ExecuteButton());
     }
 }

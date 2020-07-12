@@ -8,10 +8,10 @@ public class OrderCreator {
 
     public void createOrder(String path) {
 
-        if (!orderName.equals(null)) {
-            File file = new File(path + "/" + orderName);
-            file.mkdir();
-        }
+        File file = new File(path + "\\" + orderName);
+        boolean isCreated = file.mkdir();
+        System.out.println("Stworzono zlecenie: " + isCreated);
+
     }
 
     public void setOrderName(String orderName) {
