@@ -40,17 +40,19 @@ public class FileCopier {
             String[] files = sourceFolder.list();
 
             //Iterate over all files and copy them to destinationFolder one by one
-            for (String file : files) {
-                File srcFile = new File(sourceFolder, file);
-                File destFile = new File(destinationFolder, file);
+            if (files != null) {
+                for (String file : files) {
+                    File srcFile = new File(sourceFolder, file);
+                    File destFile = new File(destinationFolder, file);
 
-                //Recursive function call
-                copyFolder(srcFile, destFile);
+                    //Recursive function call
+                    copyFolder(srcFile, destFile);
+                }
             }
         } else {
             //Copy the file content from one place to another
             Files.copy(sourceFolder.toPath(), destinationFolder.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("File copied :: " + destinationFolder);
+            System.out.println("Kopiowanie: " + destinationFolder);
         }
     }
 }

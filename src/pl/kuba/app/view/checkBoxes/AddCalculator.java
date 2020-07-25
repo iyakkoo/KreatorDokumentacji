@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 public class AddCalculator extends JCheckBox implements ActionListener {
 
     public AddCalculator() {
-        setBounds(20, 170 , 400, 30);
+        setBounds(20, 170 , 250, 30);
         setText("Dodaj Procedurę Wyceny do Obliczeń");
         setVisible(true);
         setSelected(true);
@@ -19,10 +19,6 @@ public class AddCalculator extends JCheckBox implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isSelected()) {
-            CreatorLogic.needDefaultCalculator = true;
-        } else {
-            CreatorLogic.needDefaultCalculator = false;
-        }
+        CreatorLogic.needDefaultCalculator = isSelected();
     }
 }

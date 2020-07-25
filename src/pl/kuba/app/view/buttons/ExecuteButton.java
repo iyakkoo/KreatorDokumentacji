@@ -1,7 +1,6 @@
 package pl.kuba.app.view.buttons;
 
 import pl.kuba.app.logic.CreatorLogic;
-import pl.kuba.app.view.textFields.OrderName;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +17,7 @@ public class ExecuteButton extends JButton implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        CreatorLogic.execute();
+        //CreatorLogic.execute();
+        new CreatorLogic().execute();
     }
 }

@@ -1,61 +1,63 @@
 package pl.kuba.app.logic;
 
+import pl.kuba.app.view.MainPanel;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
+import java.time.LocalDate;
 
 public class CreatorLogic {
 
     public static boolean needOrderStructure;
     public static boolean needProjectStructure;
     public static boolean needDefaultCalculator;
-    public static boolean needDocumentation;
-    public static boolean needCertificates;
-    private static OrderCreator orderCreator;
-    private static final String defaultPath = "P:\\Projekty";
-    public static String orderName;
-    private static String defaultCalculatorLocation
-            = "P:\\Procedura wyceny\\Archiwum wersji datowanych\\Procedura wyceny 2020.02.17.xlsx";
+    public static boolean needSystemDocumentation;
+    public static boolean needControlDocumentation;
+    public static int sysDocType;
+    public static int controlDocType;
 
 
-    public static void execute() {
-
-        String year = String.valueOf(2020);
-        orderCreator = new OrderCreator();
-        orderCreator.setOrderName(orderName);
-        String orderPath = defaultPath + "\\" + year;
+    public void execute() {
+        ProjectInfo project = new ProjectInfo();
+        OrderCreator orderCreator = new OrderCreator();
+        orderCreator.setOrderName(ProjectInfo.orderName);
+        String orderPath = project.getDefaultPath() + "\\" + LocalDate.now().getYear();
         orderCreator.createOrder(orderPath);
         orderPath = orderPath + "\\" + orderCreator.getOrderName();
 
         if (needOrderStructure) {
             new OrderStructureMaker(orderPath);
-        }
-        if (needProjectStructure) {
-            new ProjectStructureMaker(orderPath);
-        }
-        if (needDefaultCalculator) {
-            String in = defaultCalculatorLocation;
-            String out = orderPath + "\\PW\\III. Obliczenia\\Procedura wyceny.xlsx";
-            try {
-                Files.copy(new File(in).toPath(), new File(out).toPath());
-                System.out.println("Dodano poprawnie kalkulator");
-            } catch (IOException e) {
-                e.printStackTrace();
+            MainPanel.status = "Tworzenie struktury zlecenia";
+
+            if (needProjectStructure) {
+                new ProjectStructureMaker(orderPath);
+                MainPanel.status = "Tworzenie struktury projektu";
+
+                if (needDefaultCalculator) {
+                    try {
+                        Files.copy(new File(project.getDefaultCalculatorLocation()).toPath(),
+                                new File(orderPath + project.getTargetCalculatorPath()).toPath());
+                        System.out.println("Dodano poprawnie kalkulator");
+                        MainPanel.status = "Dodawanie kalkulatora";
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (needSystemDocumentation) {
+                        FileCopier.copyDirectory(project.getSystemDataSheetLink(sysDocType),
+                                orderPath + project.getDefaultDataSheetLocation());
+                        FileCopier.copyDirectory(project.getSystemCertyficatesLink(sysDocType),
+                                orderPath + project.getDefaultCertificatesLocation());
+                    }
+                    if (needControlDocumentation) {
+                        FileCopier.copyDirectory(project.getControlDataSheetLink(controlDocType),
+                                orderPath + project.getDefaultDataSheetLocation());
+                        FileCopier.copyDirectory(project.getControlCertyficatesLink(controlDocType),
+                                orderPath + project.getDefaultCertificatesLocation());
+                    }
+                }
             }
         }
-        if (needDocumentation) {
-            //String in = "C:\\Users\\jakub\\Desktop\\Projekty\\Katalogi\\TA\\Karty katalogowe\\Komponenty TA-200, TA-1230";
-            //String out = orderPath + "\\PW\\V. Karty katalogowe";
-            //FileCopier.copyDirectory(in, out);
-        }
-        if (needCertificates) {
-            //String in = "C:\\Users\\jakub\\Desktop\\Projekty\\Katalogi\\TA\\Certyfikaty";
-            //String out = orderPath + "\\PW\\VI. Certyfikaty";
-            //FileCopier.copyDirectory(in, out);
-        }
     }
-
 }

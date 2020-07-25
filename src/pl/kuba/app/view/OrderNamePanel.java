@@ -1,11 +1,9 @@
 package pl.kuba.app.view;
 
-import pl.kuba.app.logic.CreatorLogic;
-import pl.kuba.app.view.textFields.OrderName;
+import pl.kuba.app.logic.ProjectInfo;
+import pl.kuba.app.view.textFields.OrderNameTextField;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class OrderNamePanel extends JPanel {
 
@@ -25,23 +23,17 @@ public class OrderNamePanel extends JPanel {
         agreedOrderName.setText(textToShow);
         add(agreedOrderName);
 
-        OrderName orderNameTextField = new OrderName();
+        OrderNameTextField orderNameTextField = new OrderNameTextField();
         add(orderNameTextField);
         JButton nameAccept = new JButton("Zatwierdź");
-        nameAccept.setBounds(450, 15, 100, 30);
-        nameAccept.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String s = e.getActionCommand();
-                if (s.equals("Zatwierdź")) {
-                    // set the text of the label to the text of the field
-                    String name = orderNameTextField.getText();
-                    CreatorLogic.orderName = name;
-                    agreedOrderName.setText("Zlecenie: " + name);
-
-                    // set the text of field to blank
-                    orderNameTextField.setText("");
-                }
+        nameAccept.setBounds(450, 15, 100, 29);
+        nameAccept.addActionListener(e -> {
+            String s = e.getActionCommand();
+            if (s.equals("Zatwierdź")) {
+                String name = orderNameTextField.getText();
+                ProjectInfo.orderName = name;
+                agreedOrderName.setText("Zlecenie: " + name);
+                orderNameTextField.setText("");
             }
         });
         add(nameAccept);

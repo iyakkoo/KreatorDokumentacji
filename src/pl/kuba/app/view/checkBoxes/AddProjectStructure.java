@@ -19,10 +19,6 @@ public class AddProjectStructure extends JCheckBox implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isSelected()) {
-            CreatorLogic.needProjectStructure = true;
-        } else {
-            CreatorLogic.needProjectStructure = false;
-        }
+        CreatorLogic.needProjectStructure = isSelected();
     }
 }

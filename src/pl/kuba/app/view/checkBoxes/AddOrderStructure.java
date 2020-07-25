@@ -19,10 +19,6 @@ public class AddOrderStructure extends JCheckBox implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isSelected()) {
-            CreatorLogic.needOrderStructure = true;
-        } else {
-            CreatorLogic.needOrderStructure = false;
-        }
+        CreatorLogic.needOrderStructure = isSelected();
     }
 }
