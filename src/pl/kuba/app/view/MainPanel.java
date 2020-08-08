@@ -7,6 +7,8 @@ import pl.kuba.app.view.comboBoxes.SystemComboBox;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainPanel extends JFrame {
 
@@ -17,10 +19,10 @@ public class MainPanel extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         setLocationRelativeTo(null);
-
+        setBackground(Color.WHITE);
         setLayout(null);
-
-        add(new OrderNamePanel());
+        OrderNamePanel orderNamePanel = new OrderNamePanel();
+        add(orderNamePanel);
 
         JLabel actionInfo = new JLabel();
         actionInfo.setBounds(20, 90, 200, 20);
@@ -37,14 +39,41 @@ public class MainPanel extends JFrame {
         messageCentral.setBounds(300, 160, 200, 20);
         add(messageCentral);
 
-        add(new AddOrderStructure());
-        add(new AddProjectStructure());
-        add(new AddCalculator());
-        add(new ExecuteButton());
-        add(new SystemComboBox());
-        add(new AddSystemDocuments());
-        add(new AddControlDocuments());
-        add(new ControlComboBox());
+        AddOrderStructure orderStructure = new AddOrderStructure();
+        AddProjectStructure addProjectStructure = new AddProjectStructure();
+        AddCalculator addCalculator = new AddCalculator();
+        ExecuteButton executeButton = new ExecuteButton();
+        SystemComboBox systemComboBox = new SystemComboBox();
+        AddSystemDocuments addSystemDocuments = new AddSystemDocuments();
+        AddControlDocuments addControlDocuments = new AddControlDocuments();
+        ControlComboBox controlComboBox = new ControlComboBox();
+
+        ActionListener al = (ActionEvent e) -> {
+            if (!orderStructure.isSelected()) {
+                addProjectStructure.setSelected(false);
+                addCalculator.setSelected(false);
+                addSystemDocuments.setSelected(false);
+                addControlDocuments.setSelected(false);
+            }
+        };
+
+        ActionListener al2 = (ActionEvent e) -> {
+            if (!addProjectStructure.isSelected()) {
+                addCalculator.setSelected(false);
+                addSystemDocuments.setSelected(false);
+                addControlDocuments.setSelected(false);
+            }
+        };
+        orderStructure.addActionListener(al);
+        addProjectStructure.addActionListener(al2);
+        add(orderStructure);
+        add(addProjectStructure);
+        add(addCalculator);
+        add(executeButton);
+        add(systemComboBox);
+        add(addSystemDocuments);
+        add(addControlDocuments);
+        add(controlComboBox);
         setVisible(true);
 
     }

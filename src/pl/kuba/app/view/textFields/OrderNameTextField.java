@@ -1,7 +1,5 @@
 package pl.kuba.app.view.textFields;
 
-import pl.kuba.app.logic.CreatorLogic;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

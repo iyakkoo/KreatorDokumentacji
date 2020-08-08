@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 public class AddOrderStructure extends JCheckBox implements ActionListener {
 
+
     public AddOrderStructure() {
         setBounds(20, 110 , 200, 30);
         setText("Struktura zlecenia");
